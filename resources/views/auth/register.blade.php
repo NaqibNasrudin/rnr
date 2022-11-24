@@ -101,7 +101,7 @@
 
                             <div class="name">
                                 <div class="name-input">
-                                    <input placeholder="Name" id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                    <input placeholder="Full Name" id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">

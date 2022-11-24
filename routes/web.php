@@ -35,3 +35,4 @@ Route::get('/Delete/{vehicle_id}', [App\Http\Controllers\AdminController::class,
 //User
 Route::get('/Book', [App\Http\Controllers\UserController::class, 'index']);
 Route::get('/Book/{vehicle_id}/Booking_form', [App\Http\Controllers\UserController::class, 'BookForm']);
+Route::get('/Book/{vehicle_id}/Vehicle_detail', [App\Http\Controllers\UserController::class, 'VehicleDetail']);

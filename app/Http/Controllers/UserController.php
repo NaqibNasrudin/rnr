@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -18,7 +19,13 @@ class UserController extends Controller
         return view('users.booking',['data'=>$data]);
     }
      public function BookForm($vehicle_id){
-        return view('users.booking_form');
+        $user = Auth::user();
+        return view('users.booking_form',['user'=>$user]);
+     }
+
+     public function VehicleDetail($vehicle_id){
+        $vehicle = Vehicle::all()->where('vehicle_id',$vehicle_id)->first();
+        return view('users.vehi_detail',['vehicle'=>$vehicle]);
      }
     /**
      * Show the form for creating a new resource.

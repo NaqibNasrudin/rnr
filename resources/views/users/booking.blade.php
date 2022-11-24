@@ -9,7 +9,7 @@
     </div>
     <div class="card">
         @foreach ($data as $data)
-        <a href="/Book/{{$data->vehicle_id}}/Booking_form">
+        <a href="/Book/{{$data->vehicle_id}}/Vehicle_detail">
             <div class="card_content">
                 <h3>{{ $data->plate_number }}</h3>
                 <img src="{{asset("img/{$data->img_name}")}}" alt="">

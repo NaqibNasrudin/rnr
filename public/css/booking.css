@@ -1,0 +1,56 @@
+html{
+    scroll-behavior: smooth;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.content{
+    display: grid;
+    grid-template-columns: 10% 10% 2fr 5% 10%;
+}
+.filter{
+    position: sticky;
+    top: 10;
+    grid-column: 2;
+    height: 80vh;
+    background-color: aqua;
+    width: 13vw;
+}
+.card{
+    grid-column: 3;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 25%);
+    grid-auto-rows: 35vh;
+    grid-gap: 30px;
+    justify-content: center;
+
+}
+.card .card_content{
+    border: .5px solid rgb(209, 209, 209);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 25px;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+}
+.card .card_content:hover{
+    border: 1px solid rgb(71, 71, 255);
+    transition: .5s ease;
+}
+.card .card_content h3{
+    font-size: 21px;
+}
+.card .card_content img{
+    width: 130px;
+    height: 100px;
+}
+.card .card_content h4{
+    float: right;
+    padding-right: 20px;
+    font-size: 20px;
+    text-decoration: none;
+    color: rgb(71, 71, 255);
+}
+

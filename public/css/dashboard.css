@@ -1,0 +1,27 @@
+.content{
+    display: grid;
+    grid-template-columns: 10% 10% 2fr 10% 10%;
+}
+
+.card{
+    grid-column: 3;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 25%);
+    grid-auto-rows: 50vh;
+    grid-gap: 30px;
+    justify-content: center;
+
+}
+.card_content{
+    border: 1px solid black;
+    border-radius: 25px;
+    margin: 10px;
+    padding: 30px;
+    text-align: center;
+}
+
+.card img{
+    width: 80%;
+    height: 30%;
+}
+

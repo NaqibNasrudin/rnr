@@ -1,0 +1,66 @@
+
+body{
+    overflow-x: hidden;
+}
+.topbar{
+    position: relative;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: 10% 10% 1fr 1fr 10% 10%;
+    align-items: center;
+    height: 120px;
+    transition: .3s ease;
+}
+.logo a{
+    text-decoration: none;
+    color: black;
+}
+.login{
+    grid-column: 5;
+}
+.login a{
+    text-decoration: none;
+    color: #0F54B0;
+    margin-left: 20px;
+    padding: 5px;
+    font-family: 'Ubuntu', sans-serif;
+}
+.logo{
+    grid-column: 2;
+}
+.logo img{
+    height: 70px;
+}
+.nav{
+    display: flex;
+}
+.nav ul{
+    list-style: none;
+}
+.nav ul li{
+    float: left;
+    margin-right: 50px;
+    font-size: 18px;
+}
+.nav ul a{
+    text-decoration: none;
+    color: #0F54B0;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+
+.top{
+    position: absolute;
+    z-index: 100;
+    bottom: 10%;
+    right: 5%;
+}
+.top img{
+    width: 30px;
+    height: 33px;
+    padding: 5px;
+    position: fixed;
+    display: none;
+    cursor: pointer;
+    border-radius: 10px;
+}

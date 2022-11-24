@@ -17,8 +17,8 @@ class UserController extends Controller
         $data = Vehicle::all();
         return view('users.booking',['data'=>$data]);
     }
-     public function BookForm(){
-
+     public function BookForm($vehicle_id){
+        return view('users.booking_form');
      }
     /**
      * Show the form for creating a new resource.

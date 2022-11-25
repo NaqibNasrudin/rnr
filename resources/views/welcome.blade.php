@@ -31,9 +31,18 @@
 <div class="content" id="brands">
     <div class="brand" >
         <div class="brandlogo">
-            <a href=""><img src="{{asset('img/yamaha.jpg')}}" alt=""></a>
+            {{-- <a href=""><img src="{{asset('img/yamaha.jpg')}}" alt=""></a>
             <a href=""><img src="{{asset('img/honda.png')}}" alt=""></a>
-            <a href=""><img src="{{asset('img/sym.png')}}" alt=""></a>
+            <a href=""><img src="{{asset('img/sym.png')}}" alt=""></a> --}}
+            <form action="" style="display: flex" method="POST">
+                @csrf
+                <label for="">Pickup Date : </label>
+                <input type="date">
+                <label for="">Return Date : </label>
+                <input type="date">
+
+                <input type="submit">
+            </form>
         </div>
 
     </div>

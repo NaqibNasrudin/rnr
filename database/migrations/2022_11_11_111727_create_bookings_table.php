@@ -17,8 +17,6 @@ return new class extends Migration
             $table->id('book_id');
             $table->string('user_id');
             $table->unsignedBigInteger('vehicle_id');
-            $table->string('fname');
-            $table->string('lname');
             $table->string('phone_no');
             $table->string('pickup_date');
             $table->string('return_date');

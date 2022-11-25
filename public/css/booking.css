@@ -43,8 +43,8 @@ a{
     font-size: 21px;
 }
 .card .card_content img{
-    width: 130px;
-    height: 100px;
+    width: 50%;
+    height: 30%;
 }
 .card .card_content h4{
     float: right;

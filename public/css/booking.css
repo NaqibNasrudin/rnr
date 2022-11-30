@@ -15,14 +15,15 @@ a{
     grid-column: 2;
     height: 80vh;
     background-color: aqua;
-    width: 13vw;
+    width: 100%;
 }
 .card{
     margin-left: 20px;
     grid-column: 3;
     display: grid;
-    grid-template-columns: repeat(auto-fill, 20%);
-    grid-auto-rows: 30vh;
+    grid-template-columns: repeat(auto-fill, 250px);
+    /* grid-template-columns: 250px 250px 250px 250px; */
+    grid-auto-rows: 300px;
     grid-gap: 30px;
     justify-content: center;
 
@@ -52,5 +53,9 @@ a{
     font-size: 20px;
     text-decoration: none;
     color: rgb(71, 71, 255);
+}
+.card .card_content p{
+    font-size: 20px;
+    font-weight: bold;
 }
 

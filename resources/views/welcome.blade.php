@@ -36,12 +36,16 @@
             <a href=""><img src="{{asset('img/sym.png')}}" alt=""></a> --}}
             <form action="" style="display: flex" method="POST">
                 @csrf
-                <label for="">Pickup Date : </label>
-                <input type="date">
-                <label for="">Return Date : </label>
-                <input type="date">
+                <div class="pickup">
+                    <label for="">Pickup Date : </label>
+                    <input type="date">
+                </div>
+                <div class="return">
+                    <label for="">Return Date : </label>
+                    <input type="date">
+                </div>
 
-                <input type="submit">
+                <input type="submit" class="submit">
             </form>
         </div>
 

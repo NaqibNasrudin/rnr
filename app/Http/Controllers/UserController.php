@@ -17,8 +17,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        // $data = Vehicle::all();
-        // $data = DB::table('vehicles')->join('bookings', 'vehicles.vehicle_id', '=', 'bookings.vehicle_id')->get();
         $data = DB::table('vehicles')
                 ->leftJoin('bookings', 'vehicles.vehicle_id', '=', 'bookings.vehicle_id')
                 ->select('vehicles.vehicle_id', 'vehicles.owner_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.cc', 'vehicles.price')

@@ -115,16 +115,23 @@ body{
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     z-index: 100;
 }
-.content .brand .brandlogo{
+.content .brand .brandlogo form{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr ;
-    justify-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
-.content .brand .brandlogo img{
-    width: 60px;
-    height: 50px;
-    margin: 10px;
+.content .brand .brandlogo form .return{
+    grid-column: 2;
 }
+.content .brand .brandlogo form .submit{
+    grid-column: 3;
+}
+.content .brand .brandlogo form input{
+    margin-right: 70px;
+}
+
 .content .steps{
     margin-top: 50px;
 }
@@ -138,16 +145,19 @@ body{
 .content .steps h2{
     margin: 0;
     text-align: center;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .content .steps .stepsdetail{
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 25px;
+    font-family: 'Ubuntu', sans-serif;
 }
 .content .steps .stepsdetail img{
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     margin: 60px;
 }
 .content .para p{

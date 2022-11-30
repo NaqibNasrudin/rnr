@@ -34,15 +34,15 @@
             {{-- <a href=""><img src="{{asset('img/yamaha.jpg')}}" alt=""></a>
             <a href=""><img src="{{asset('img/honda.png')}}" alt=""></a>
             <a href=""><img src="{{asset('img/sym.png')}}" alt=""></a> --}}
-            <form action="" style="display: flex" method="POST">
+            <form action="/Book" style="display: flex" method="POST">
                 @csrf
                 <div class="pickup">
                     <label for="">Pickup Date : </label>
-                    <input type="date">
+                    <input type="date" name="pickup">
                 </div>
                 <div class="return">
                     <label for="">Return Date : </label>
-                    <input type="date">
+                    <input type="date" name="return">
                 </div>
 
                 <input type="submit" class="submit">

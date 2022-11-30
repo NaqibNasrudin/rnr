@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('user_id');
             $table->unsignedBigInteger('vehicle_id');
             $table->string('phone_no');
-            $table->string('pickup_date');
-            $table->string('return_date');
+            $table->date('pickup_date');
+            $table->date('return_date');
 
             $table->foreign('user_id')->references('user_id')->on('users');
             $table->foreign('vehicle_id')->references('vehicle_id')->on('vehicles');

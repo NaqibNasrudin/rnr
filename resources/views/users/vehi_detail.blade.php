@@ -8,6 +8,6 @@
     <p>{{$vehicle->model}}</p>
     <p>{{$vehicle->cc}}</p>
     <p>{{$vehicle->price}}</p>
-    <a href="/Book/{{$vehicle->vehicle_id}}/Booking_form"><button>Book Now</button></a>
+    <a href="/Book/{{$vehicle->vehicle_id}}/from{{$pickup}}to{{$return}}/Booking_form"><button>Book Now</button></a>
 </div>
 @endsection

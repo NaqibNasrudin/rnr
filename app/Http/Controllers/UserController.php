@@ -9,6 +9,7 @@ use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class UserController extends Controller
 {
@@ -41,47 +42,28 @@ class UserController extends Controller
     public function index(Request $request){
         $pickup = $request->input('pickup');
         $return = $request->input('return');
-        $inputrange = CarbonPeriod::create($pickup, $return);
-        $dates = $inputrange->toArray();
-
         $data = DB::table('vehicles')
                 ->leftJoin('bookings', 'vehicles.vehicle_id', '=', 'bookings.vehicle_id')
-                ->select('bookings.pickup_date', 'bookings.return_date', 'vehicles.vehicle_id', 'vehicles.owner_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.cc', 'vehicles.price')
+                ->select( 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price',DB::raw('COUNT(vehicles.vehicle_id)'))
+                ->whereNotBetween('pickup_date',[$pickup,$return])
+                ->WhereNotBetween('return_date',[$pickup,$return])
+                ->orwhere('pickup_date', '>', $pickup)
+                ->Where('return_date', '<', $return)
+                ->orWhere('pickup_date',null)
+                ->Where('return_date',null)
+                ->groupBy('vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
                 ->get();
-
-        // dump($data[0]->pickup_date);
-        $dateArr = array();
-        $length = count($data);
-        for ($i=0; $i < $length ; $i++) {
-            if ($data[$i]->pickup_date == null || $data[$i]->return_date == null) {
-                $dateArr[$i] = 'none';
-            }
-            else{
-                $dates = CarbonPeriod::create($data[$i]->pickup_date, $data[$i]->return_date);
-                $range = $dates->toArray();
-                $dateArr[$i] = $range;
-            }
-        }
-        $dateArr[0][0] = (array)$dateArr[0][0];
-        echo gettype($dateArr[0][0]);
-        for ($i=0; $i < $length; $i++) {
-            for ($j=$i; $j < $i+1; $j++) {
-                $dates = (array)$dates;
-                $dateArr[$i][$j] = (array)$dateArr[$i][$j];
-                $intersect = array_intersect($dateArr[$i][$j],$dates);
-            }
-        }
-        // return view('users.catalog',['data'=>$data]);
+        return view('users.catalog',['data'=>$data, 'pickup'=>$pickup, 'return'=>$return]);
     }
-     public function BookForm($vehicle_id){
+     public function BookForm($vehicle_id,$pickup,$return){
         $vehicle = Vehicle::all()->where('vehicle_id',$vehicle_id)->first();
         $user = Auth::user();
-        return view('users.booking_form',['user'=>$user,'vehicle'=>$vehicle]);
+        return view('users.booking_form',['user'=>$user,'vehicle'=>$vehicle,'pickup'=>$pickup,'return'=>$return]);
      }
-
-     public function VehicleDetail($vehicle_id){
+     //VEHICLE DETAIL
+     public function VehicleDetail($vehicle_id,$pickup,$return){
         $vehicle = Vehicle::all()->where('vehicle_id',$vehicle_id)->first();
-        return view('users.vehi_detail',['vehicle'=>$vehicle]);
+        return view('users.vehi_detail',['vehicle'=>$vehicle,'pickup'=>$pickup,'return'=>$return]);
      }
      public function StoreBooking(Request $request, $vehicle_id){
         // $name = $request->input('name');
@@ -99,7 +81,16 @@ class UserController extends Controller
         DB::insert('insert into booking_historys (user_id, vehicle_id, phone_no, pickup_date, return_date)
                     values (?, ?, ?, ?, ?)',
                     [$name->user_id, $vehicle_id, $phoneno, $pickup, $return]);
-        print('Booking Successfull');
+
+        function generatedoc(){
+            $templateProcessor = new TemplateProcessor('word-template/receipt.docx');
+
+
+            $fileName = 'Receipt';
+            $templateProcessor->saveAs($fileName .'.docx');
+            return response()->download($fileName .'.docx')->deleteFileAfterSend(true);
+        }
+        generatedoc();
      }
     /**
      * Show the form for creating a new resource.

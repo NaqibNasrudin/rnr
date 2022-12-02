@@ -97,7 +97,7 @@
             <div class="nav">
                 <ul>
                     <li><a href="/">Home</a></li>
-                    <li><a href="/Book">Book</a></li>
+                    {{-- <li><a href="/Book">Book</a></li> --}}
                     <li><a href="/Contact-Us">Contact Us</a></li>
                 </ul>
             </div>

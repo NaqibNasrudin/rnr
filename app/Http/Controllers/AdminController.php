@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Expr\FuncCall;
@@ -61,6 +63,11 @@ class AdminController extends Controller
         DB::table('vehicles')->where('vehicle_id',$vehicle_id)->delete();
         return redirect('/Admin');
 
+    }
+
+    public function BookedVehi(){
+        $data = Booking::all();
+        return view('admin.booked',['data'=>$data]);
     }
     /**
      * Show the form for creating a new resource.

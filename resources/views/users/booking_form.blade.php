@@ -11,10 +11,10 @@
         <input type="text" placeholder="Phone Number" name="phoneno">
         <br>
         <label for="">Pickup Date : </label>
-        <input type="date" name="pickup" name="pickup">
+        <input type="date" name="pickup" name="pickup" value="{{$pickup}}" readonly>
         <br>
         <label for="">Return Date : </label>
-        <input type="date" name="return" name="return">
+        <input type="date" name="return" name="return" value="{{$return}}" readonly>
         <br>
         <input type="submit">
     </form>

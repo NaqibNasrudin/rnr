@@ -69,7 +69,7 @@
             function scrollFunction() {
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
                 mybutton.style.display = "block";
-                // mybutton.style.opacity = 1 - ((value * 1) / 300);
+                // mybutton.style.opacity = 0.5 - ((value * 1) / 300);
             } else {
                 mybutton.style.display = "none";
             }

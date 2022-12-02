@@ -37,4 +37,5 @@
         @endforeach
     </div>
 </div>
+<script src="{{asset('js/catalog.js')}}"></script>
 @endsection

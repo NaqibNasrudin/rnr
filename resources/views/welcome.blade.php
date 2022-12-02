@@ -34,18 +34,16 @@
             {{-- <a href=""><img src="{{asset('img/yamaha.jpg')}}" alt=""></a>
             <a href=""><img src="{{asset('img/honda.png')}}" alt=""></a>
             <a href=""><img src="{{asset('img/sym.png')}}" alt=""></a> --}}
-            <form action="/Book" style="display: flex" method="POST">
+            <form action="/Book" method="POST">
                 @csrf
                 <div class="pickup">
-                    <label for="">Pickup Date : </label>
-                    <input type="date" name="pickup">
+                    <input type="text" name="pickup" onfocus="(this.type='date')" placeholder="Pickup Date">
                 </div>
                 <div class="return">
-                    <label for="">Return Date : </label>
-                    <input type="date" name="return">
+                    <input type="text" name="return" onfocus="(this.type='date')" placeholder="Return Date">
                 </div>
 
-                <input type="submit" class="submit">
+                <input type="submit" class="submit" value="Search">
             </form>
         </div>
 
@@ -64,11 +62,16 @@
             <h2><ion-icon name="alarm"></ion-icon><br> Pickup</h2>
         </div>
     </div>
-    <div class="para">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, similique. Consectetur, eum odit vel autem architecto tempore! Officiis corporis, ratione minus facilis autem sequi, quae aliquam porro ipsam nisi ipsa tempora, quaerat magni. Natus molestiae dicta aliquam necessitatibus inventore velit esse eius, porro, cupiditate alias at, explicabo harum. Iusto, veniam corrupti? Maiores beatae tenetur cupiditate. Nisi, reiciendis earum! Pariatur officia nulla obcaecati porro maiores labore laudantium corporis aperiam, esse consequatur repudiandae inventore vero voluptates illum perferendis numquam eaque cupiditate omnis perspiciatis ullam doloremque. Debitis animi dolorum itaque quas ut necessitatibus maiores odio, eum omnis placeat nulla a suscipit aspernatur cum accusamus earum culpa temporibus. Quas voluptatem dolore dolorum iste et, non rerum fugit facilis expedita voluptates adipisci distinctio autem, reiciendis laborum? Odit laboriosam, inventore labore ipsa ipsum fuga aliquam. Minus quo similique illo nobis! Quibusdam dolorum repellendus sunt molestias quisquam quis doloribus minima? Ipsam quisquam rerum doloribus consectetur delectus, harum eveniet vitae! Ab quos soluta placeat. Excepturi debitis laudantium reiciendis! Quisquam libero molestias placeat quaerat iure harum tempore illo ullam perspiciatis eius ab neque voluptatum minus minima voluptatem quasi at repellendus tenetur vero eveniet possimus, obcaecati exercitationem? Aliquid aperiam a aliquam ipsam consequatur soluta ipsum adipisci voluptatibus voluptate harum, minima obcaecati at exercitationem vitae mollitia iure. Itaque non dolores modi maxime, voluptatibus, nam aliquam recusandae consequuntur reprehenderit asperiores, corrupti suscipit blanditiis in laudantium sit. Iusto repellendus eveniet maxime? Nam quae iure tempore ea quam deserunt temporibus ad tempora a illo quibusdam repellat fugit ipsam molestiae id iste dolorum officia obcaecati vitae, sequi, eius quis unde impedit. Minus nobis perferendis voluptate nisi! Aspernatur sed iste rem earum vero a natus explicabo. Ex reprehenderit dolorem dolor sed incidunt consequuntur quas, doloremque aut odio provident, blanditiis consectetur veritatis repellat laborum repudiandae corrupti quidem excepturi fuga dolores minima earum ipsam. Eos eligendi facilis quam!</p>
-    </div>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt, consequuntur cum! Quidem culpa corporis, veritatis laborum sed, neque mollitia ipsum numquam molestias ratione et fuga corrupti ipsam dignissimos labore tenetur!</p>
 </div>
 
+<div class="para">
+    <div class="para_card">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, similique.</p>
+        <img src="{{asset('img/seaside.jpg')}}" alt="" class="seaside">
+    </div>
+</div>
+<br><br>
 <div class="weather-card">
     <div id="openweathermap-widget-11"></div>
     <script src='//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script>

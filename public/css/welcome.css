@@ -6,6 +6,7 @@ body{
     margin: 0 auto;
     overflow-x: hidden;
     background-color: rgb(250, 250, 250);
+    /* background-color: rgb(68, 68, 68); */
     /* background-color: black; */
 }
 #bg,#moto{
@@ -91,8 +92,8 @@ body{
     color: white;
 }
 
-/* Content */
-.content{
+/* Contents */
+.contents{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -105,7 +106,7 @@ body{
     background: linear-gradient(167deg, rgba(6,71,137,1) 33%, rgba(66,122,161,1) 100%); */
     /* margin-top: 120px; */
 }
-.content .brand{
+.contents .brand{
     /* border: .1px solid grey; */
     font-family: 'Ubuntu', sans-serif;
     background-color: white;
@@ -118,7 +119,7 @@ body{
     background-color: #064789;
     padding: 5px;
 }
-.content .brand .brandlogo form{
+.contents .brand .brandlogo form{
     display: grid;
     grid-template-columns: 2fr 2fr 1fr;
     align-items: center;
@@ -127,25 +128,25 @@ body{
     width: 100%;
     gap: 5px;
 }
-.content .brand .brandlogo form .return{
+.contents .brand .brandlogo form .return{
     grid-column: 2;
 }
-.content .brand .brandlogo form .submit{
+.contents .brand .brandlogo form .submit{
     grid-column: 3;
 }
-.content .brand .brandlogo form input{
+.contents .brand .brandlogo form input{
     border: .5px solid white;
     height: 100%;
     width: 100%;
     padding: 10px;
     border-radius: 3px;
 }
-.content .brand .brandlogo form input[type=date]{
+.contents .brand .brandlogo form input[type=date]{
     font-size: 15px;
     display: inline-block;
     position: relative;
 }
-.content .brand .brandlogo form input[type="date"]::-webkit-calendar-picker-indicator {
+.contents .brand .brandlogo form input[type="date"]::-webkit-calendar-picker-indicator {
     background: transparent;
     bottom: 0;
     color: transparent;
@@ -157,48 +158,48 @@ body{
     top: 0;
     width: auto;
 }
-.content .brand .brandlogo form input[type=submit]{
+.contents .brand .brandlogo form input[type=submit]{
     cursor: pointer;
     background-color: rgb(71, 71, 255);
     color: white;
     border: none;
     font-size: 20px;
 }
-.content .brand .brandlogo form input[type=submit]:hover{
+.contents .brand .brandlogo form input[type=submit]:hover{
     cursor: pointer;
     background-color: white;
     color: rgb(71, 71, 255);
     border: rgb(71, 71, 255);
     transition: .3s ease;
 }
-.content .brand .brandlogo form p{
+.contents .brand .brandlogo form p{
     font-size: 20px;
 }
 
-.content .steps{
+.contents .steps{
     margin-top: 50px;
 }
-.content .steps p{
+.contents .steps p{
     width: 100%;
     color: rgb(110, 110, 110);
     text-align: center;
     align-items: center;
     margin: 0 auto;
 }
-.content .steps h2{
+.contents .steps h2{
     margin: 0;
     text-align: center;
     font-family: 'Ubuntu', sans-serif;
 }
 
-.content .steps .stepsdetail{
+.contents .steps .stepsdetail{
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 25px;
     font-family: 'Ubuntu', sans-serif;
 }
-.content .steps .stepsdetail img{
+.contents .steps .stepsdetail img{
     width: 70px;
     height: 70px;
     margin: 60px;

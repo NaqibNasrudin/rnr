@@ -39,6 +39,7 @@ Route::post('/Book', [App\Http\Controllers\UserController::class, 'index']);
 Route::get('/Book/{vehicle_id}/from{pickup}to{return}/Booking_form', [App\Http\Controllers\UserController::class, 'BookForm']);
 Route::get('/Book/{vehicle_id}/from{pickup}to{return}/Vehicle_detail', [App\Http\Controllers\UserController::class, 'VehicleDetail']);
 Route::post('/Store_booking/{vehicle_id}', [App\Http\Controllers\UserController::class, 'StoreBooking']);
+Route::get('/Receipt/{book_id}', [App\Http\Controllers\UserController::class, 'GenerateReceipt']);
 
 
 Route::get('/test', [App\Http\Controllers\UserController::class, 'test']);

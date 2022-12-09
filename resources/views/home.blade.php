@@ -14,7 +14,16 @@
         <p>Full Name : {{$name->name}}</p>
         <p>Email Address : {{$name->email}}</p>
         <p>Booking History : </p>
-
+            <div class="history_card">
+                @foreach ($history as $history)
+                    <div class="card_content">
+                        <p>{{$history->brand}} {{$history->model}}</p>
+                        <p>{{$history->plate_number}}</p>
+                        <p>{{$history->pickup_date}}</p>
+                        <p>{{$history->return_date}}</p>
+                    </div>
+                @endforeach
+            </div>
     @endif
 </div>
 

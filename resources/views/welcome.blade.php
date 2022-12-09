@@ -6,6 +6,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap" rel="stylesheet">
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="https://unpkg.com/scrollreveal"></script>
 
 @section('content')
 <div class="header" id="header">
@@ -28,7 +29,7 @@
 </div> --}}
 
 
-<div class="content" id="brands">
+<div class="contents" id="brands">
     <div class="brand" >
         <div class="brandlogo">
             {{-- <a href=""><img src="{{asset('img/yamaha.jpg')}}" alt=""></a>
@@ -79,4 +80,12 @@
 </div>
 
 <script src="{{asset('js/welcome.js')}}"></script>
+<script>
+     var slideUp = {
+        distance: '150%',
+        origin: 'bottom',
+        opacity: null
+    };
+    ScrollReveal().reveal('.contents', {delay:500});
+</script>
 @endsection

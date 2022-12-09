@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Booking;
 use App\Models\Vehicle;
 use Carbon\Carbon;
@@ -10,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpWord\TemplateProcessor;
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\Settings;
 
 class UserController extends Controller
 {
@@ -53,6 +54,8 @@ class UserController extends Controller
                 ->Where('return_date',null)
                 ->groupBy('vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
                 ->get();
+
+        // DB::table('bookings')->where('return_date','<',Carbon::now())->delete();
         return view('users.catalog',['data'=>$data, 'pickup'=>$pickup, 'return'=>$return]);
     }
      public function BookForm($vehicle_id,$pickup,$return){
@@ -82,75 +85,38 @@ class UserController extends Controller
                     values (?, ?, ?, ?, ?)',
                     [$name->user_id, $vehicle_id, $phoneno, $pickup, $return]);
 
-        function generatedoc(){
-            $templateProcessor = new TemplateProcessor('word-template/receipt.docx');
+
+        $data = DB::table('vehicles')
+                ->leftJoin('bookings', 'vehicles.vehicle_id', '=', 'bookings.vehicle_id')
+                ->select( 'bookings.pickup_date', 'bookings.return_date', 'bookings.book_id', 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
+                ->orderBy('book_id', 'DESC')
+                ->first();
+        return view('users.receipt',['data'=>$data]);
 
 
-            $fileName = 'Receipt';
-            $templateProcessor->saveAs($fileName .'.docx');
-            return response()->download($fileName .'.docx')->deleteFileAfterSend(true);
-        }
-        generatedoc();
      }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+     public function GenerateReceipt($book_id){
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        // GENERATE RECEIPT
+        $data = DB::table('vehicles')
+                ->leftJoin('bookings', 'vehicles.vehicle_id', '=', 'bookings.vehicle_id')
+                ->select( 'bookings.pickup_date', 'bookings.return_date', 'bookings.book_id', 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
+                ->where('book_id',$book_id)
+                ->first();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        $templateProcessor = new TemplateProcessor('word-template/receipt.docx');
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        $templateProcessor->setValue('plate',$data->plate_number);
+        $templateProcessor->setValue('pickup',$data->pickup_date);
+        $templateProcessor->setValue('return',$data->return_date);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+        $fileName = 'Receipt';
+        $templateProcessor->saveAs($fileName .'.docx');
+
+        // $phpWord = IOFactory::load($fileName .'.docx');
+        // $phpWord->save('document.pdf', 'PDF');
+        return response()->download($fileName .'.docx')->deleteFileAfterSend(true);
+     }
 }

@@ -27,13 +27,28 @@ a{
     justify-items: center;
 }
 .search input[type=date]{
-    height: 20px;
-    border-radius: 10px;
+    height: 35px;
+    border-radius: 5px;
     border: .5px solid white;
     padding: 10px;
+    margin-top: 3px;
+}
+.search input[type=submit]{
+    background-color: rgb(71, 71, 255);
+    color: white;
+    border-style: none;
+    height: 30px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.search input[type=submit]:hover{
+    background-color: white;
+    color: rgb(71, 71, 255);
+    border: .5px solid rgb(71, 71, 255);
+    transition: .3s ease;
 }
 .filter_field{
-    background-color: blue;
+    background-color: rgb(128, 208, 255);
 }
 .card{
     margin-left: 20px;
@@ -47,10 +62,11 @@ a{
 
 }
 .card .card_content{
+    padding: 5px;
     height: 100%;
-    border: .5px solid rgb(209, 209, 209);
+    /* border: .5px solid rgb(209, 209, 209); */
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    border-radius: 10px;
+    border-radius: 5px;
     text-align: center;
     font-family: 'Ubuntu', sans-serif;
 }
@@ -73,7 +89,7 @@ a{
     color: rgb(71, 71, 255);
 }
 .card .card_content p{
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
 }
 

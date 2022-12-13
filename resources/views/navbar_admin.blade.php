@@ -17,7 +17,7 @@
             </div>
             <div class="nav">
                 <ul>
-                    {{-- <li><a href="/Manage">Manage Vehicle</a></li> --}}
+                    <li><a href="/Admin">View Vehicles</a></li>
                     <li><a href="/Upload">Upload New Vehicle</a></li>
                     <li><a href="/Booked">Booked Vehicle Vehicle</a></li>
                 </ul>

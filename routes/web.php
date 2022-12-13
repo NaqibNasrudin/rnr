@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,9 +37,15 @@ Route::get('/Booked', [App\Http\Controllers\AdminController::class, 'BookedVehi'
 
 //User
 Route::post('/Book', [App\Http\Controllers\UserController::class, 'index']);
-Route::get('/Book/{vehicle_id}/from{pickup}to{return}/Booking_form', [App\Http\Controllers\UserController::class, 'BookForm']);
+Route::get('/Book/{vehicle_id}/from{pickup}to{return}/Booking_form', [App\Http\Controllers\UserController::class, 'BookForm'])->middleware(Authenticate::class);
 Route::get('/Book/{vehicle_id}/from{pickup}to{return}/Vehicle_detail', [App\Http\Controllers\UserController::class, 'VehicleDetail']);
 Route::post('/Store_booking/{vehicle_id}', [App\Http\Controllers\UserController::class, 'StoreBooking']);
+Route::get('/Cart/{vehicle_id}/from{pickup}to{return}', [App\Http\Controllers\UserController::class, 'AddtoCart'])->middleware(Authenticate::class);
+Route::get('/Cart', [App\Http\Controllers\UserController::class, 'Cart']);
+Route::get('/Checkout', [App\Http\Controllers\UserController::class, 'Checkout']);
+Route::post('/CheckoutStore', [App\Http\Controllers\UserController::class, 'CheckoutStore']);
+
+
 Route::get('/Receipt/{book_id}', [App\Http\Controllers\UserController::class, 'GenerateReceipt']);
 
 

@@ -66,6 +66,14 @@ body{
     border-radius: 10px;
 }
 
-.dropdown-item:hover{
-    background-color: #0F54B0;
+.dropdown-menu .dropdown-item{
+    width: 100%;
+    margin: 5px auto;
+    /* padding: 10px; */
+}
+.dropdown-menu .dropdown-item:hover{
+    text-decoration: underline;
+    color: rgb(71, 71, 255);
+    /* color: white; */
+
 }

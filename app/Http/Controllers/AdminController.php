@@ -50,8 +50,7 @@ class AdminController extends Controller
         DB::insert('insert into vehicles (owner_id, img_name, plate_number, model, brand, cc, price)
                     values (?, ?, ?, ?, ?, ?, ?)',
                     [$owner, $myimage, $request->input('plate'), $request->input('model'), $request->input('brand'), $request->input('cc'), $request->input('price')]);
-
-
+        $vehicle = DB::table('vehicles')->orderBy('vehicle_id','DESC')->first();
         return redirect('/Admin');
     }
     public function DeleteVehi($vehicle_id){

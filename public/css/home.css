@@ -17,5 +17,8 @@ button:hover{
     transition: .3s ease-in-out;
 }
 .history_card .card_content{
-    border: .5px solid black;
+    border: .5px solid rgb(204, 204, 204);
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 8px;
 }

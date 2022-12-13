@@ -1,23 +1,28 @@
-.content{
+/* .content{
     display: grid;
     grid-template-columns: 10% 10% 2fr 10% 10%;
-}
+} */
 
 .card{
+    width: 80%;
+    margin: 0 auto;
     grid-column: 3;
     display: grid;
-    grid-template-columns: repeat(auto-fill, 25%);
+    grid-template-columns: repeat(auto-fill, 300px);
     grid-auto-rows: 50vh;
     grid-gap: 30px;
     justify-content: center;
 
+
 }
-.card_content{
-    border: 1px solid black;
-    border-radius: 25px;
+.card .card_content{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 10px;
+    border: 0.1px solid rgb(214, 214, 214);
     margin: 10px;
     padding: 30px;
     text-align: center;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .card img{

@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
@@ -72,11 +73,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
         // $profile = User::where('name', $data['name'])->where('email',$data['email'])->first();
         if ($data['name'] == 'Admin') {
-            $userid = 'A-'.User::all()->count() + 1;
-            $rowid = User::all()->count() + 1;
+            $count = DB::table('users')->where('name','Admin')->count();
+            if ($count > 0) {
+                // echo 'Wrong Input';
+                return view('welcome');
+            }else{
+                $userid = 'A-'.User::all()->count() + 1;
+                $rowid = User::all()->count() + 1;
+            }
+
         }else{
             $userid = 'U-'.User::all()->count() + 1;
             $rowid = User::all()->count() + 1;

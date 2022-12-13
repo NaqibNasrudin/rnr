@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Booking;
+use App\Models\Cart;
 use App\Models\Vehicle;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -34,27 +35,25 @@ class UserController extends Controller
         $number = count($intersect);
 
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    ////NO IDEA WHATS GOING ON
     public function index(Request $request){
         $pickup = $request->input('pickup');
         $return = $request->input('return');
+        // if($pickup == null || $return == null){
+        //     return redirect('/#brands')->with('error','Please select date');
+        //     //return redirect('/');
+        // }else{
+        //  Problem
         $data = DB::table('vehicles')
                 ->leftJoin('bookings', 'vehicles.vehicle_id', '=', 'bookings.vehicle_id')
                 ->select( 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price',DB::raw('COUNT(vehicles.vehicle_id)'))
-                ->whereNotBetween('pickup_date',[$pickup,$return])
+                ->Where('book_id',null)
+                ->orwhereNotBetween('pickup_date',[$pickup,$return])
                 ->WhereNotBetween('return_date',[$pickup,$return])
                 ->orwhere('pickup_date', '>', $pickup)
                 ->Where('return_date', '<', $return)
-                ->orWhere('pickup_date',null)
-                ->Where('return_date',null)
                 ->groupBy('vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
                 ->get();
-
+        // }
         // DB::table('bookings')->where('return_date','<',Carbon::now())->delete();
         return view('users.catalog',['data'=>$data, 'pickup'=>$pickup, 'return'=>$return]);
     }
@@ -69,8 +68,6 @@ class UserController extends Controller
         return view('users.vehi_detail',['vehicle'=>$vehicle,'pickup'=>$pickup,'return'=>$return]);
      }
      public function StoreBooking(Request $request, $vehicle_id){
-        // $name = $request->input('name');
-        // $email = $request->input('email');
         $phoneno = $request->input('phoneno');
         $pickup = $request->input('pickup');
         $return = $request->input('return');
@@ -95,6 +92,51 @@ class UserController extends Controller
 
 
      }
+     public function Cart(){
+        $user = Auth::user();
+        $data = DB::table('vehicles')
+                ->leftJoin('carts', 'vehicles.vehicle_id', '=', 'carts.vehicle_id')
+                ->select( 'carts.pickup_date', 'carts.return_date', 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
+                ->where('user_id',$user->user_id)
+                ->get();
+        return view('users.cart',['data'=>$data]);
+     }
+     public function AddtoCart($vehicle_id,$pickup_date,$return_date){
+        $user = Auth::user();
+        DB::insert('insert into carts (user_id, vehicle_id, pickup_date, return_date)
+                    values (?, ?, ?, ?)',
+                    [$user->user_id, $vehicle_id, $pickup_date, $return_date]);
+
+        return redirect('/Cart');
+     }
+     public function Checkout(){
+        $user = Auth::user();
+        // $data = DB::table('carts')->where('user_id',$user->user_id)->get();
+        $data = DB::table('vehicles')
+                ->leftJoin('carts', 'vehicles.vehicle_id', '=', 'carts.vehicle_id')
+                ->select( 'carts.pickup_date', 'carts.return_date', 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
+                ->where('user_id',$user->user_id)
+                ->get();
+        return view('users.cart_confirm',['data'=>$data,'user'=>$user]);
+     }
+     public function CheckoutStore(Request $request){
+        $length = count($request->input('vehicleid'));
+        $vehicle = $request->input('vehicleid');
+        $pickup = $request->input('pickup');
+        $return = $request->input('return');
+        $user = Auth::user();
+        for ($i=0; $i < $length ; $i++) {
+            DB::insert('insert into bookings (user_id, vehicle_id, phone_no, pickup_date, return_date)
+                        values (?, ?, ?, ?, ?)',
+                        [$user->user_id, $vehicle[$i], $request->input("phoneno"), $pickup[$i], $return[$i]]);
+
+            DB::insert('insert into booking_historys (user_id, vehicle_id, phone_no, pickup_date, return_date)
+                        values (?, ?, ?, ?, ?)',
+                        [$user->user_id, $vehicle[$i], $request->input("phoneno"), $pickup[$i], $return[$i]]);
+        }
+
+        DB::table('carts')->where('user_id',$user->user_id)->delete();
+     }
 
      public function GenerateReceipt($book_id){
 
@@ -107,6 +149,9 @@ class UserController extends Controller
 
         $templateProcessor = new TemplateProcessor('word-template/receipt.docx');
 
+        $templateProcessor->setImageValue('img', public_path('img/'.$data->img_name));
+        $templateProcessor->setValue('brand',$data->brand);
+        $templateProcessor->setValue('model',$data->model);
         $templateProcessor->setValue('plate',$data->plate_number);
         $templateProcessor->setValue('pickup',$data->pickup_date);
         $templateProcessor->setValue('return',$data->return_date);
@@ -114,9 +159,6 @@ class UserController extends Controller
 
         $fileName = 'Receipt';
         $templateProcessor->saveAs($fileName .'.docx');
-
-        // $phpWord = IOFactory::load($fileName .'.docx');
-        // $phpWord->save('document.pdf', 'PDF');
         return response()->download($fileName .'.docx')->deleteFileAfterSend(true);
      }
 }

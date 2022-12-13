@@ -9,5 +9,6 @@
     <p>{{$vehicle->cc}}</p>
     <p>{{$vehicle->price}}</p>
     <a href="/Book/{{$vehicle->vehicle_id}}/from{{$pickup}}to{{$return}}/Booking_form"><button>Book Now</button></a>
+    <a href="/Cart/{{$vehicle->vehicle_id}}/from{{$pickup}}to{{$return}}"><button>Add to Cart</button></a>
 </div>
 @endsection

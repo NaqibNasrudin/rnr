@@ -205,27 +205,37 @@ body{
     margin: 60px;
 }
 
+
+/* CONTENT 2 */
+.content2{
+    background: url('../img/bg.jpg') fixed, linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 1)) ;
+    background-size: cover;
+    position: absolute;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: #064789;
+    width: 100%;
+}
 /* PARA CARD */
 .para .para_card{
+    grid-column: 1;
     position: relative;
     height: 200px;
     width: 500px;
 }
 .para .para_card p{
+    color: white;
     position: absolute;
     z-index: 2;
-}
-.para .para_card .seaside{
-    position: absolute;
-    z-index: 1;
-    width: 100%;
 }
 
 
 /* weather */
 .weather-card{
+    grid-column: 2;
     margin: 0 auto;
     padding: 50px;
-    width: 39%;
+    right: 0;
+
 }
 

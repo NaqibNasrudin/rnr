@@ -71,17 +71,17 @@
     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt, consequuntur cum! Quidem culpa corporis, veritatis laborum sed, neque mollitia ipsum numquam molestias ratione et fuga corrupti ipsam dignissimos labore tenetur!</p>
 </div>
 
-<div class="para">
-    <div class="para_card">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, similique.</p>
-        <img src="{{asset('img/seaside.jpg')}}" alt="" class="seaside">
+<div class="content2">
+    <div class="para">
+        <div class="para_card">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, similique.</p>
+        </div>
     </div>
-</div>
-<br><br>
-<div class="weather-card">
-    <div id="openweathermap-widget-11"></div>
-    <script src='//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script>
-    <script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 11,cityid: '1763070',appid: 'e275ab309bd1d35b3a17022e298ae453',units: 'metric',containerid: 'openweathermap-widget-11',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>
+    <div class="weather-card">
+        <div id="openweathermap-widget-11"></div>
+        <script src='//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script>
+        <script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 11,cityid: '1763070',appid: 'e275ab309bd1d35b3a17022e298ae453',units: 'metric',containerid: 'openweathermap-widget-11',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>
+    </div>
 </div>
 
 <script src="{{asset('js/welcome.js')}}"></script>
@@ -91,6 +91,6 @@
         origin: 'bottom',
         opacity: null
     };
-    ScrollReveal().reveal('.contents', {delay:500});
+    ScrollReveal().reveal('.contents', {delay:300});
 </script>
 @endsection

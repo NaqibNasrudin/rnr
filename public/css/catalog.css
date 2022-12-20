@@ -6,6 +6,7 @@ a{
     color: black;
 }
 .content{
+    padding-top: 50px;
     display: grid;
     grid-template-columns: 10% 10% 2fr 5% 10%;
 }
@@ -17,7 +18,7 @@ a{
     width: 100%;
 }
 .search{
-    background-color: rgb(132, 132, 255);
+    /* background-color: rgb(132, 132, 255); */
     margin-bottom: 30px;
 }
 .search form{
@@ -29,7 +30,7 @@ a{
 .search input[type=date]{
     height: 35px;
     border-radius: 5px;
-    border: .5px solid white;
+    border: .5px solid rgb(132, 132, 255);
     padding: 10px;
     margin-top: 3px;
 }
@@ -51,6 +52,7 @@ a{
     background-color: rgb(128, 208, 255);
 }
 .card{
+    border-radius: 10px;
     margin-left: 20px;
     grid-column: 3;
     display: grid;
@@ -62,6 +64,7 @@ a{
 
 }
 .card .card_content{
+    background-color: white;
     padding: 5px;
     height: 100%;
     /* border: .5px solid rgb(209, 209, 209); */

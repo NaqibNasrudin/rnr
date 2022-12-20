@@ -46,7 +46,7 @@ Route::get('/Checkout', [App\Http\Controllers\UserController::class, 'Checkout']
 Route::post('/CheckoutStore', [App\Http\Controllers\UserController::class, 'CheckoutStore']);
 
 
-Route::get('/Receipt/{book_id}', [App\Http\Controllers\UserController::class, 'GenerateReceipt']);
+Route::get('/Receipt', [App\Http\Controllers\UserController::class, 'GenerateReceipt']);
 
 
 Route::get('/test', [App\Http\Controllers\UserController::class, 'test']);

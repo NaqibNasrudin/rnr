@@ -6,12 +6,16 @@ use App\Models\Cart;
 use App\Models\Vehicle;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Illuminate\Foundation\Exceptions\Whoops\WhoopsExceptionRenderer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use LengthException;
 use PhpOffice\PhpWord\TemplateProcessor;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\Settings;
+use PhpOffice\PhpWord\SimpleType\TblWidth;
+use PhpOffice\PhpWord\Element\Table;
 
 class UserController extends Controller
 {
@@ -43,18 +47,44 @@ class UserController extends Controller
         //     //return redirect('/');
         // }else{
         //  Problem
-        $data = DB::table('vehicles')
-                ->leftJoin('bookings', 'vehicles.vehicle_id', '=', 'bookings.vehicle_id')
-                ->select( 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price',DB::raw('COUNT(vehicles.vehicle_id)'))
-                ->Where('book_id',null)
-                ->orwhereNotBetween('pickup_date',[$pickup,$return])
-                ->WhereNotBetween('return_date',[$pickup,$return])
-                ->orwhere('pickup_date', '>', $pickup)
-                ->Where('return_date', '<', $return)
-                ->groupBy('vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
-                ->get();
+        // $available = Booking::whereNotBetween('pickup_date',[$pickup,$return])
+        //         ->WhereNotBetween('return_date',[$pickup,$return])
+        //         ->orwhere('pickup_date', '>', $pickup)
+        //         ->Where('return_date', '<', $return)
+        //         ->pluck('pickup_date')
+        //         ->first();
+        $available = DB::table('bookings')
+                     ->whereNotBetween('pickup_date',[$pickup,$return])
+                     ->WhereNotBetween('return_date',[$pickup,$return])
+                     ->orwhere('pickup_date', '>', $pickup)
+                     ->Where('return_date', '<', $return)
+                     ->first();
+
+         $arr = (array)$available;
+        //  PROBLEM
+         if ($available == null) {
+            $data = DB::table('vehicles')
+                     ->leftJoin('bookings', 'vehicles.vehicle_id', '=', 'bookings.vehicle_id')
+                     ->select( 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price',DB::raw('COUNT(vehicles.vehicle_id)'))
+                     ->Where('book_id',null)
+                     ->groupBy('vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
+                     ->get();
+         }else{
+            $data = DB::table('vehicles')
+                     ->leftJoin('bookings', 'vehicles.vehicle_id', '=', 'bookings.vehicle_id')
+                     ->select( 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price',DB::raw('COUNT(vehicles.vehicle_id)'))
+                     ->Where('bookings.book_id',null)
+                     ->orwhereNotBetween('bookings.pickup_date',[$pickup,$return])
+                     ->WhereNotBetween('bookings.return_date',[$pickup,$return])
+                     // ->orWhere('pickup_date', '>', $pickup)
+                     // ->where('return_date', '<', $return)
+                     ->groupBy('vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
+                     ->get();
+         }
+
         // }
         // DB::table('bookings')->where('return_date','<',Carbon::now())->delete();
+      //   dump($arr);
         return view('users.catalog',['data'=>$data, 'pickup'=>$pickup, 'return'=>$return]);
     }
      public function BookForm($vehicle_id,$pickup,$return){
@@ -86,8 +116,10 @@ class UserController extends Controller
         $data = DB::table('vehicles')
                 ->leftJoin('bookings', 'vehicles.vehicle_id', '=', 'bookings.vehicle_id')
                 ->select( 'bookings.pickup_date', 'bookings.return_date', 'bookings.book_id', 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
-                ->orderBy('book_id', 'DESC')
-                ->first();
+                ->where('user_id',$name->user_id)
+                ->where('pickup_date',$pickup)
+                ->where('return_date',$return)
+                ->get();
         return view('users.receipt',['data'=>$data]);
 
 
@@ -111,7 +143,6 @@ class UserController extends Controller
      }
      public function Checkout(){
         $user = Auth::user();
-        // $data = DB::table('carts')->where('user_id',$user->user_id)->get();
         $data = DB::table('vehicles')
                 ->leftJoin('carts', 'vehicles.vehicle_id', '=', 'carts.vehicle_id')
                 ->select( 'carts.pickup_date', 'carts.return_date', 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
@@ -136,29 +167,37 @@ class UserController extends Controller
         }
 
         DB::table('carts')->where('user_id',$user->user_id)->delete();
-     }
 
-     public function GenerateReceipt($book_id){
-
-        // GENERATE RECEIPT
         $data = DB::table('vehicles')
                 ->leftJoin('bookings', 'vehicles.vehicle_id', '=', 'bookings.vehicle_id')
                 ->select( 'bookings.pickup_date', 'bookings.return_date', 'bookings.book_id', 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
-                ->where('book_id',$book_id)
-                ->first();
+                ->where('user_id',$user->user_id)
+                ->where('pickup_date',$pickup)
+                ->where('return_date',$return)
+                ->get();
+        return view('users.receipt',['data'=>$data]);
+     }
 
+      public function GenerateReceipt(Request $request){
         $templateProcessor = new TemplateProcessor('word-template/receipt.docx');
 
-        $templateProcessor->setImageValue('img', public_path('img/'.$data->img_name));
-        $templateProcessor->setValue('brand',$data->brand);
-        $templateProcessor->setValue('model',$data->model);
-        $templateProcessor->setValue('plate',$data->plate_number);
-        $templateProcessor->setValue('pickup',$data->pickup_date);
-        $templateProcessor->setValue('return',$data->return_date);
+
+        $img = $request->input('img');
+        $brand = $request->input('brand');
+        $model = $request->input('model');
+        $length = count($img);
+        $templateProcessor->cloneBlock('info',$length, true, true);
+
+        for ($i=1; $i <= $length; $i++) {
+            $templateProcessor->setImageValue("img#$i", public_path('img/'.$img[$i-1]));
+            $templateProcessor->setValue("brand#$i", $brand[$i]);
+            $templateProcessor->setValue("model#$i", $model[$i]);
+        }
 
 
-        $fileName = 'Receipt';
-        $templateProcessor->saveAs($fileName .'.docx');
-        return response()->download($fileName .'.docx')->deleteFileAfterSend(true);
-     }
+
+         $fileName = 'Receipt';
+         $templateProcessor->saveAs($fileName .'.docx');
+         return response()->download($fileName .'.docx')->deleteFileAfterSend(true);
+      }
 }

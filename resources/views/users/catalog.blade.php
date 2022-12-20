@@ -16,7 +16,7 @@
                 <input type="submit" class="submit">
             </form>
         </div>
-        <div class="filter_field">
+        {{-- <div class="filter_field">
             <h2>filter</h2>
             <label for="price">Price: </label>
             <br>
@@ -28,7 +28,7 @@
             <br>
             <input type="radio" name="price" value="above21" id="price">
             <label for="">Above RM21</label>
-        </div>
+        </div> --}}
     </div>
 
     <div class="card">

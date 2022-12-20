@@ -1,5 +1,5 @@
 @extends('navbar_admin')
-<link rel="stylesheet" href="{{asset('upload.css')}}">
+<link rel="stylesheet" href="{{asset('css/upload.css')}}">
 @section('content')
 <div class="upload">
     <h1>Upload New Vehicle</h1>

@@ -42,49 +42,27 @@ class UserController extends Controller
     public function index(Request $request){
         $pickup = $request->input('pickup');
         $return = $request->input('return');
-        // if($pickup == null || $return == null){
-        //     return redirect('/#brands')->with('error','Please select date');
-        //     //return redirect('/');
-        // }else{
-        //  Problem
-        // $available = Booking::whereNotBetween('pickup_date',[$pickup,$return])
-        //         ->WhereNotBetween('return_date',[$pickup,$return])
-        //         ->orwhere('pickup_date', '>', $pickup)
-        //         ->Where('return_date', '<', $return)
-        //         ->pluck('pickup_date')
-        //         ->first();
-        $available = DB::table('bookings')
-                     ->whereNotBetween('pickup_date',[$pickup,$return])
-                     ->WhereNotBetween('return_date',[$pickup,$return])
-                     ->orwhere('pickup_date', '>', $pickup)
-                     ->Where('return_date', '<', $return)
-                     ->first();
-
-         $arr = (array)$available;
-        //  PROBLEM
-         if ($available == null) {
+        if($pickup == null || $return == null){
+            return redirect('/#brands')->with('error','Please select date');
+            //return redirect('/');
+        }else{
+            $available = DB::table('vehicles')
+                        ->leftJoin('bookings', 'vehicles.vehicle_id', '=', 'bookings.vehicle_id')
+                        ->select('vehicles.plate_number')
+                        ->whereBetween('bookings.pickup_date',[$pickup,$return])
+                        ->orWhereBetween('bookings.return_date',[$pickup,$return])
+                        ->get();
+            $arr = json_decode(json_encode($available), true);
             $data = DB::table('vehicles')
                      ->leftJoin('bookings', 'vehicles.vehicle_id', '=', 'bookings.vehicle_id')
-                     ->select( 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price',DB::raw('COUNT(vehicles.vehicle_id)'))
-                     ->Where('book_id',null)
-                     ->groupBy('vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
+                     ->select('vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
+                     ->whereNotIn('plate_number',$arr)
+                     ->distinct()
                      ->get();
-         }else{
-            $data = DB::table('vehicles')
-                     ->leftJoin('bookings', 'vehicles.vehicle_id', '=', 'bookings.vehicle_id')
-                     ->select( 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price',DB::raw('COUNT(vehicles.vehicle_id)'))
-                     ->Where('bookings.book_id',null)
-                     ->orwhereNotBetween('bookings.pickup_date',[$pickup,$return])
-                     ->WhereNotBetween('bookings.return_date',[$pickup,$return])
-                     // ->orWhere('pickup_date', '>', $pickup)
-                     // ->where('return_date', '<', $return)
-                     ->groupBy('vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
-                     ->get();
-         }
 
-        // }
+        }
         // DB::table('bookings')->where('return_date','<',Carbon::now())->delete();
-      //   dump($arr);
+        //   dump($data);
         return view('users.catalog',['data'=>$data, 'pickup'=>$pickup, 'return'=>$return]);
     }
      public function BookForm($vehicle_id,$pickup,$return){

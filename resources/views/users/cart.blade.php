@@ -20,6 +20,9 @@
                     <p>{{$data->cc}} CC</p>
                     <p>{{$data->price}}</p>
                 </div>
+                <div class="delete">
+                    <a href="/Delete_Item/{{$data->cart_id}}"><button>Delete</button></a>
+                </div>
             </div>
         @endforeach
     </div>

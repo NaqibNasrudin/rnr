@@ -12,7 +12,7 @@
 <div class="header" id="header">
     <div class="text" id="text">
         <h1>R&R@Pangkor</h1>
-        <p>Search and rent your best ride to roam around <span>Pangkor</span></p>
+        <p>Rent your best ride to roam around <span>Pangkor</span></p>
     </div>
     <img src="{{asset('img/bg.jpg')}}" alt="" id="bg">
     <img src="{{asset('img/moto.png')}}" alt="" id="moto">
@@ -67,21 +67,21 @@
     </div>
     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt, consequuntur cum! Quidem culpa corporis, veritatis laborum sed, neque mollitia ipsum numquam molestias ratione et fuga corrupti ipsam dignissimos labore tenetur!</p>
 </div>
-
 <div class="content2_container">
     <div class="content2">
-        <div class="para">
-            <div class="para_card">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam, similique.</p>
-            </div>
+        <div class="explore">
+            <h2>Explore Pangkor</h2>
+            <p>"Pulau Pangkor Bebas Cukai"</p>
         </div>
         <div class="weather-card">
             <div id="openweathermap-widget-11"></div>
             <script src='//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script>
             <script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 11,cityid: '1763070',appid: 'e275ab309bd1d35b3a17022e298ae453',units: 'metric',containerid: 'openweathermap-widget-11',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>
         </div>
-        <div class="explore">
-            <h2>Explore Pangkor</h2>
+        <div class="images">
+            <p>
+                asdadasd
+            </p>
         </div>
     </div>
 </div>

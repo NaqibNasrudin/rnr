@@ -106,7 +106,7 @@ class UserController extends Controller
         $user = Auth::user();
         $data = DB::table('vehicles')
                 ->leftJoin('carts', 'vehicles.vehicle_id', '=', 'carts.vehicle_id')
-                ->select( 'carts.pickup_date', 'carts.return_date', 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price', 'vehicles.cc')
+                ->select( 'carts.cart_id', 'carts.pickup_date', 'carts.return_date', 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price', 'vehicles.cc')
                 ->where('user_id',$user->user_id)
                 ->get();
         return view('users.cart',['data'=>$data]);
@@ -120,6 +120,11 @@ class UserController extends Controller
 
         return redirect('/Cart');
      }
+     public function Deleteitem($cart_id){
+        Cart::where('cart_id',$cart_id)->delete();
+        return redirect('/Cart');
+     }
+
      public function Checkout(){
         $user = Auth::user();
         $data = DB::table('vehicles')

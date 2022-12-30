@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="{{asset('css/navbar.css')}}">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {{-- <script src="https://kit.fontawesome.com/5cfea6fc65.js" crossorigin="anonymous"></script> --}}
 </head>
     <body>
         <div class="topbar" id="topbar">
@@ -27,7 +29,9 @@
                     @if (Route::has('login'))
                         <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                             @auth
-                                <a href="/Cart">Cart</a>
+                                {{-- <a href="/Cart">Cart</a> --}}
+                                <a href="/Cart" class="cart"><i class="fa fa-shopping-cart"></i></a>
+                                {{-- <a href=""><i class="fa fa-cart-shopping"></i></a> --}}
                                 <a href="{{ url('/Profile') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Profile</a>
 
                             @else

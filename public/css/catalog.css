@@ -75,7 +75,8 @@ a{
 }
 .card .card_content:hover{
     border: 1px solid rgb(71, 71, 255);
-    transition: .5s ease;
+    transition: .3s ease;
+    box-shadow: rgba(71, 71, 255, 0.2) 0px 8px 24px;
 }
 .card .card_content h3{
     font-size: 21px;

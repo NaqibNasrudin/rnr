@@ -44,6 +44,7 @@ Route::get('/Cart/{vehicle_id}/from{pickup}to{return}', [App\Http\Controllers\Us
 Route::get('/Cart', [App\Http\Controllers\UserController::class, 'Cart']);
 Route::get('/Checkout', [App\Http\Controllers\UserController::class, 'Checkout']);
 Route::post('/CheckoutStore', [App\Http\Controllers\UserController::class, 'CheckoutStore']);
+Route::get('/Delete_Item/{cart_id}', [App\Http\Controllers\UserController::class, 'DeleteItem']);
 
 
 Route::get('/Receipt', [App\Http\Controllers\UserController::class, 'GenerateReceipt']);

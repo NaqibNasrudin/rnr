@@ -209,28 +209,38 @@ body{
 /* CONTENT 2 */
 .content2{
     height: 100%;
-    background: url('../img/bg.jpg') fixed, linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 1)) ;
+    background: url('../img/bg.jpg') fixed;
     background-size: cover;
+    filter: brightness(90%);
     position: absolute;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 2fr;
-    background-color: #064789;
     width: 100%;
-}
-/* PARA CARD */
-.para .para_card{
-    grid-column: 1;
-    position: relative;
-    height: 200px;
-    width: 500px;
-}
-.para .para_card p{
-    color: white;
-    position: absolute;
-    z-index: 2;
+    font-family: 'Ubuntu', sans-serif;
 }
 
+/* Explore */
+.content2 .explore{
+    color: white;
+    margin: 70px;
+}
+.content2 .explore h2{
+    font-size: 70px;
+    margin-bottom: 0px;
+}
+.content2 .explore p{
+    padding-top: 0px;
+    font-size: 30px;
+}
+
+/* images */
+.content2 .images{
+    display: flex;
+    flex-direction: column;
+    margin-left: 90px;
+    margin-right: 90px;
+}
 
 /* weather */
 .weather-card{
@@ -238,6 +248,5 @@ body{
     margin: 0 auto;
     padding: 50px;
     right: 0;
-
 }
 

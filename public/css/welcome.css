@@ -208,11 +208,13 @@ body{
 
 /* CONTENT 2 */
 .content2{
+    height: 100%;
     background: url('../img/bg.jpg') fixed, linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 1)) ;
     background-size: cover;
     position: absolute;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 2fr;
     background-color: #064789;
     width: 100%;
 }

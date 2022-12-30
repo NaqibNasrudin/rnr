@@ -37,8 +37,8 @@ class UserController extends Controller
         }
 
         $number = count($intersect);
-
     }
+
     public function index(Request $request){
         $pickup = $request->input('pickup');
         $return = $request->input('return');
@@ -106,10 +106,11 @@ class UserController extends Controller
         $user = Auth::user();
         $data = DB::table('vehicles')
                 ->leftJoin('carts', 'vehicles.vehicle_id', '=', 'carts.vehicle_id')
-                ->select( 'carts.pickup_date', 'carts.return_date', 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
+                ->select( 'carts.pickup_date', 'carts.return_date', 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price', 'vehicles.cc')
                 ->where('user_id',$user->user_id)
                 ->get();
         return view('users.cart',['data'=>$data]);
+        // dump($data);
      }
      public function AddtoCart($vehicle_id,$pickup_date,$return_date){
         $user = Auth::user();

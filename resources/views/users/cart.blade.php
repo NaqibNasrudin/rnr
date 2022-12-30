@@ -1,10 +1,37 @@
 @extends('navbar')
-
+<link rel="stylesheet" href="{{asset('css/cart.css')}}">
 @section('content')
-@foreach ($data as $data)
-    <p>{{$data->vehicle_id}}</p>
-    <p>{{$data->brand}} {{$data->model}}</p>
-@endforeach
-<button onclick="history.go(-2)">Continue Booking</button>
-<a href="/Checkout"><button>Checkout</button></a>
+
+<h2>Your Cart</h2>
+@if ( count($data) == 0 )
+    <div class="no_item">
+        <p>No Items</p>
+    </div>
+@else
+    <div class="card">
+        @foreach ($data as $data)
+            <div class="card_content">
+                <div class="image">
+                    <img src="{{asset("img/{$data->img_name}")}}" alt="">
+                </div>
+                <div class="detail">
+                    <p>{{$data->plate_number}}</p>
+                    <p>{{$data->brand}} {{$data->model}}</p>
+                    <p>{{$data->cc}} CC</p>
+                    <p>{{$data->price}}</p>
+                </div>
+            </div>
+        @endforeach
+    </div>
+    <div class="btn_action">
+        <form action="/Book" method="POST" class="continue_book">
+            @csrf
+            <input type="text" value="{{$data->pickup_date}}" hidden name="pickup">
+            <input type="text" value="{{$data->return_date}}" hidden name="return">
+            <input type="submit" value="Continue Booking">
+        </form>
+        <a href="/Checkout" class="checkout"><button>Checkout</button></a>
+    </div>
+@endif
+
 @endsection

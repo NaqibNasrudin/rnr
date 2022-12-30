@@ -1,0 +1,26 @@
+.detail{
+    height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card{
+    width: 60%;
+    padding: 50px;
+    display: flex;
+    flex-direction: row;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-radius: 10px;
+}
+.card .card_left{
+    width: 40%;
+}
+.card .card_left img{
+    width: 100%;
+    margin: 10px;
+}
+
+.card .card_right{
+    margin-left: 50px;
+}
+

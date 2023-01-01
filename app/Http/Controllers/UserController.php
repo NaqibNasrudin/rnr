@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\Vehicle;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use DateTime;
 use Illuminate\Foundation\Exceptions\Whoops\WhoopsExceptionRenderer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,33 +20,16 @@ use PhpOffice\PhpWord\Element\Table;
 
 class UserController extends Controller
 {
-
-    public function test(){
-        $date = Booking::all()->first();
-        $period = CarbonPeriod::create($date->pickup_date, $date->return_date);
-        $dates = $period->toArray();
-
-        $initialDate = new Carbon('2022-12-9');
-        $finalDate = new Carbon('2022-12-10');
-
-        $range2 = CarbonPeriod::create($initialDate, $finalDate);
-        $dates2 = $range2->toArray();
-
-        $intersect = array_intersect($dates,$dates2);
-        foreach ($intersect as $i) {
-            echo $i.'<br>';
-        }
-
-        $number = count($intersect);
-    }
-
     public function index(Request $request){
         $pickup = $request->input('pickup');
         $return = $request->input('return');
         if($pickup == null || $return == null){
-            return redirect('/#brands')->with('error','Please select date');
+            return redirect('/#brands')->with('error','Please Select Date');
             //return redirect('/');
-        }else{
+        }elseif ($return < $pickup) {
+            return redirect('/#brands')->with('error','Please Re-Check Your Input');
+        }
+        else{
             $available = DB::table('vehicles')
                         ->leftJoin('bookings', 'vehicles.vehicle_id', '=', 'bookings.vehicle_id')
                         ->select('vehicles.plate_number')
@@ -67,8 +51,15 @@ class UserController extends Controller
     }
      public function BookForm($vehicle_id,$pickup,$return){
         $vehicle = Vehicle::all()->where('vehicle_id',$vehicle_id)->first();
+
+        $interval = date_diff(new DateTime($pickup),new DateTime($return));
+        $price = explode(" ",$vehicle->price);
+        $price = array_map('intval', $price);
+
+        $total = $price[1]*$interval->d;
+
         $user = Auth::user();
-        return view('users.booking_form',['user'=>$user,'vehicle'=>$vehicle,'pickup'=>$pickup,'return'=>$return]);
+        return view('users.booking_form',['user'=>$user,'vehicle'=>$vehicle,'pickup'=>$pickup,'return'=>$return, 'total'=>$total]);
      }
      //VEHICLE DETAIL
      public function VehicleDetail($vehicle_id,$pickup,$return){
@@ -81,27 +72,54 @@ class UserController extends Controller
         $return = $request->input('return');
 
         $name = Auth::user();
+        if ($phoneno == null) {
+            return redirect("/Book/$vehicle_id/from$pickup"."to$return/Booking_form")->with('error','Please Enter Your Phone Number');
+        }
 
-        DB::insert('insert into bookings (user_id, vehicle_id, phone_no, pickup_date, return_date)
-                    values (?, ?, ?, ?, ?)',
-                    [$name->user_id, $vehicle_id, $phoneno, $pickup, $return]);
-
-        DB::insert('insert into booking_historys (user_id, vehicle_id, phone_no, pickup_date, return_date)
-                    values (?, ?, ?, ?, ?)',
-                    [$name->user_id, $vehicle_id, $phoneno, $pickup, $return]);
-
-
-        $data = DB::table('vehicles')
+        $booking = DB::table('vehicles')
                 ->leftJoin('bookings', 'vehicles.vehicle_id', '=', 'bookings.vehicle_id')
                 ->select( 'bookings.pickup_date', 'bookings.return_date', 'bookings.book_id', 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
                 ->where('user_id',$name->user_id)
                 ->where('pickup_date',$pickup)
                 ->where('return_date',$return)
                 ->get();
-        return view('users.receipt',['data'=>$data]);
+
+        // dump(count($data));
+        if (count($booking) == 0) {
+            DB::insert('insert into bookings (user_id, vehicle_id, phone_no, pickup_date, return_date)
+                    values (?, ?, ?, ?, ?)',
+                    [$name->user_id, $vehicle_id, $phoneno, $pickup, $return]);
+
+            DB::insert('insert into booking_historys (user_id, vehicle_id, phone_no, pickup_date, return_date)
+                        values (?, ?, ?, ?, ?)',
+                        [$name->user_id, $vehicle_id, $phoneno, $pickup, $return]);
+
+            $data = DB::table('vehicles')
+                ->leftJoin('bookings', 'vehicles.vehicle_id', '=', 'bookings.vehicle_id')
+                ->select( 'bookings.pickup_date', 'bookings.return_date', 'bookings.book_id', 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
+                ->where('user_id',$name->user_id)
+                ->where('pickup_date',$pickup)
+                ->where('return_date',$return)
+                ->get();
+            return view('users.receipt',['data'=>$data]);
+
+        }
+        else{
+
+            $data = DB::table('vehicles')
+                ->leftJoin('bookings', 'vehicles.vehicle_id', '=', 'bookings.vehicle_id')
+                ->select( 'bookings.pickup_date', 'bookings.return_date', 'bookings.book_id', 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
+                ->where('user_id',$name->user_id)
+                ->where('pickup_date',$pickup)
+                ->where('return_date',$return)
+                ->get();
+
+            return view('users.receipt',['data'=>$data]);
+        }
 
 
      }
+
      public function Cart(){
         $user = Auth::user();
         $data = DB::table('vehicles')
@@ -109,9 +127,40 @@ class UserController extends Controller
                 ->select( 'carts.cart_id', 'carts.pickup_date', 'carts.return_date', 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price', 'vehicles.cc')
                 ->where('user_id',$user->user_id)
                 ->get();
-        return view('users.cart',['data'=>$data]);
+
+        $length = count($data);
+
+        // Date
+        $datearray = array();
+        for ($i=0; $i < $length; $i++) {
+            $date1 = new DateTime($data[$i]->pickup_date);
+            $date2 = new DateTime($data[$i]->return_date);
+
+            $interval = date_diff($date1,$date2);
+            array_push($datearray,$interval);
+        }
+
+        // Price
+        $pricearray = array();
+        for ($i=0; $i < $length; $i++) {
+            $price = $data[$i]->price;
+            $splitted = explode(" ",$price);
+            array_push($pricearray,$splitted[1]);
+        }
+
+        $pricelength = count($pricearray);
+        $pricearray = array_map('intval', $pricearray);
+        // $datearray = array_map('intval', $datearray);
+        $total = 0;
+        for ($i=0; $i < $pricelength; $i++) {
+            $actualvalue = $pricearray[$i] * $datearray[$i]->d;
+            $total += $actualvalue;
+        }
+        return view('users.cart',['data'=>$data, 'total'=>$total]);
+        // dump($datearray[1]->d);
         // dump($data);
      }
+
      public function AddtoCart($vehicle_id,$pickup_date,$return_date){
         $user = Auth::user();
         DB::insert('insert into carts (user_id, vehicle_id, pickup_date, return_date)
@@ -169,13 +218,15 @@ class UserController extends Controller
         $img = $request->input('img');
         $brand = $request->input('brand');
         $model = $request->input('model');
+        $pickup = $request->input('pickup');
+        $return = $request->input('return');
         $length = count($img);
         $templateProcessor->cloneBlock('info',$length, true, true);
 
         for ($i=1; $i <= $length; $i++) {
             $templateProcessor->setImageValue("img#$i", public_path('img/'.$img[$i-1]));
-            $templateProcessor->setValue("brand#$i", $brand[$i]);
-            $templateProcessor->setValue("model#$i", $model[$i]);
+            $templateProcessor->setValue("brand#$i", $brand[$i-1]);
+            $templateProcessor->setValue("model#$i", $model[$i-1]);
         }
 
 

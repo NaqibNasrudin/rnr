@@ -18,7 +18,7 @@
                     <p>{{$data->plate_number}}</p>
                     <p>{{$data->brand}} {{$data->model}}</p>
                     <p>{{$data->cc}} CC</p>
-                    <p>{{$data->price}}</p>
+                    <p>{{$data->price}} / night</p>
                 </div>
                 <div class="delete">
                     <a href="/Delete_Item/{{$data->cart_id}}"><button>Delete</button></a>
@@ -33,6 +33,7 @@
             <input type="text" value="{{$data->return_date}}" hidden name="return">
             <input type="submit" value="Continue Booking">
         </form>
+        <h3>Total : RM {{$total}}</h3>
         <a href="/Checkout" class="checkout"><button>Checkout</button></a>
     </div>
 @endif

@@ -39,7 +39,7 @@
                 <img src="{{asset("img/{$data->img_name}")}}" alt="">
                 <hr>
                 <p>{{$data->brand}} {{$data->model}}</p>
-                <h4>{{$data->price}}</h4>
+                <h4>{{$data->price}} / night</h4>
             </div>
         </a>
         @endforeach

@@ -1,0 +1,93 @@
+.content_parent{
+    width: 80%;
+    margin: 0 auto;
+}
+.content{
+    font-family: 'Ubuntu', sans-serif;
+    display: inline-grid;
+    grid-template-columns: 1fr 2fr;
+}
+.content .info{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    grid-column: 1;
+    border: .5px solid rgb(71, 71, 255);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 50px;
+    border-radius: 10px;
+    text-align: center;
+}
+.content .info img{
+    width: 100%;
+}
+.content .info .details{
+    font-size: 30px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.content .booking_form{
+    z-index: 100;
+    padding: 30px;
+    border: .5px solid rgb(71, 71, 255);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    grid-column: 2;
+    border-radius: 10px;
+}
+.content .booking_form .user_info{
+    display: grid;
+    grid-template-columns: 1fr 1fr 20%;
+}
+.content .booking_form .user_info .price{
+    grid-column: 3;
+}
+.content .booking_form .user_info .price p{
+    font-size: 30px;
+}
+.content .booking_form .user_info .dates{
+    display: flex;
+}
+.content .booking_form .user_info .dates .pickup{
+    border-right: 2px solid rgb(71, 71, 255);
+    padding-right: 10px;
+}
+.content .booking_form p{
+    font-size: 20px;
+    margin-left: 10px;
+}
+.content .booking_form h2{
+    margin-left: 10px;
+}
+.content .booking_form input{
+    margin: 10px;
+    border: .5px solid grey;
+    border-radius: 5px;
+}
+.content .booking_form input[type=text], input[type=date]{
+    width: 70%;
+    height: 50px;
+    padding: 20px;
+}
+.content .booking_form input[type=submit]{
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    background-color: rgb(71, 71, 255);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.content .booking_form input[type=submit]:hover{
+    color: rgb(71, 71, 255);
+    background-color: white;
+    border: .5px solid rgb(71, 71, 255);
+    cursor: pointer;
+    transition: .3s ease-in-out;
+}
+.content .booking_form .alert{
+    color: red;
+    margin-left: 10px;
+}

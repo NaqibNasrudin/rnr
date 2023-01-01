@@ -5,7 +5,7 @@
     <div class="card">
         @foreach ($data as $data)
             <div class="card_content">
-                <h1>{{ $data->plate_number }}</h1>
+                <h2>{{ $data->plate_number }}</h2>
                 <img src="{{asset("img/{$data->img_name}")}}" alt="">
                 <p>Brand : {{$data->brand}}</p>
                 <p>Model : {{$data->model}}</p>

@@ -12,21 +12,26 @@
     grid-auto-rows: 50vh;
     grid-gap: 30px;
     justify-content: center;
-
-
 }
 .card .card_content{
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    box-shadow: rgba(71, 71, 255, 0.2) 0px 2px 8px 0px;
     border-radius: 10px;
-    border: 0.1px solid rgb(214, 214, 214);
+    border: 0.1px solid rgb(71, 71, 255);
     margin: 10px;
     padding: 30px;
     text-align: center;
     font-family: 'Ubuntu', sans-serif;
 }
 
-.card img{
+.card .card_content img{
     width: 80%;
     height: 30%;
 }
 
+.card .card_content a{
+    color: red;
+    text-decoration: none;
+}
+.card .card_content a:hover{
+    color: rgb(165, 0, 0);
+}

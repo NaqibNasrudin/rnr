@@ -99,7 +99,7 @@ body{
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 75vh;
+    height: 70vh;
     z-index: 100;
     /* background-color: #064789; */
     /* background: rgb(6,71,137);
@@ -175,6 +175,9 @@ body{
 .contents .brand .brandlogo form p{
     font-size: 20px;
 }
+.contents .brand .brandlogo .alert{
+    color: red;
+}
 
 .contents .steps{
     margin-top: 50px;
@@ -234,12 +237,45 @@ body{
     font-size: 30px;
 }
 
-/* images */
+/* Images */
 .content2 .images{
+    margin-top: 30px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    flex-direction: row;
     margin-left: 90px;
     margin-right: 90px;
+    grid-column: span 2;
+    grid-row: 2;
+}
+.content2 .images .card{
+    position: relative;
+    overflow: hidden;
+}
+.content2 .images .card img{
+    padding: 10px;
+    height: 300px;
+    width: 500px;
+    filter: brightness(70%);
+    z-index: 1;
+    transition: transform .3s ease-in-out;
+}
+.content2 .images .card img:hover{
+    height: 300px;
+    width: 500px;
+    filter: brightness(95%);
+    z-index: 1;
+    transform: scale(1.2);
+    transition: .3s ease
+
+}
+.content2 .images .card h3{
+    font-size: 35px;
+    position: absolute;
+    color: white;
+    left: 50%;
+    top: 30%;
+    z-index: 100;
 }
 
 /* weather */

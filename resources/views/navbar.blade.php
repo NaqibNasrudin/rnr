@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="{{asset('img/rnr_logo.png')}}">
     {{-- <script src="https://kit.fontawesome.com/5cfea6fc65.js" crossorigin="anonymous"></script> --}}
 </head>
     <body>

@@ -17,7 +17,7 @@
                 <p>Brand : {{$vehicle->brand}} </p>
                 <p>Model : {{$vehicle->model}}</p>
                 <p>Cubic Capacity : {{$vehicle->cc}}</p>
-                <p class="price"><b>{{$vehicle->price}}</b></p>
+                <p class="price"><b>{{$vehicle->price}} / night</b></p>
             </div>
             <div class="btn">
                 <a href="/Cart/{{$vehicle->vehicle_id}}/from{{$pickup}}to{{$return}}"><button>Add to Cart <i class="fa fa-shopping-cart"></i></button></a>

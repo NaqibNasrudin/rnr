@@ -20,25 +20,16 @@
 </div>
 
 
-{{-- <div class="custom-shape-divider-bottom-1668163191">
-    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-        <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
-        <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" class="shape-fill"></path>
-        <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
-    </svg>
-</div> --}}
-
-
 <div class="contents" id="brands">
     <div class="brand" >
         <div class="brandlogo">
             <form action="/Book" method="POST">
                 @csrf
                 <div class="pickup">
-                    <input type="text" name="pickup" onfocus="(this.type='date')" placeholder="Pickup Date">
+                    <input type="text" name="pickup" id="pickup" onfocus="changepickup()" placeholder="Pickup Date">
                 </div>
                 <div class="return">
-                    <input type="text" name="return" onfocus="(this.type='date')" placeholder="Return Date">
+                    <input type="text" name="return" id="return" onfocus="changereturn()" placeholder="Return Date" >
                 </div>
 
                 <input type="submit" class="submit" value="Search">
@@ -56,7 +47,7 @@
     </div>
     <div class="steps">
         <p>HOW IT WORKS?</p>
-        <h2>3 Simple Steps to Rent Your Best Bike.</h2>
+        <h2>3 Simple Steps to Rent Our Best Bike.</h2>
         <div class="stepsdetail">
             <h2><ion-icon name="search"></ion-icon><br> Search</h2>
             <img src="{{asset('img/rotated-right-arrow.png')}}" alt="">
@@ -65,7 +56,7 @@
             <h2><ion-icon name="alarm"></ion-icon><br> Pickup</h2>
         </div>
     </div>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt, consequuntur cum! Quidem culpa corporis, veritatis laborum sed, neque mollitia ipsum numquam molestias ratione et fuga corrupti ipsam dignissimos labore tenetur!</p>
+    {{-- <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt, consequuntur cum! Quidem culpa corporis, veritatis laborum sed, neque mollitia ipsum numquam molestias ratione et fuga corrupti ipsam dignissimos labore tenetur!</p> --}}
 </div>
 <div class="content2_container">
     <div class="content2">
@@ -79,9 +70,19 @@
             <script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 11,cityid: '1763070',appid: 'e275ab309bd1d35b3a17022e298ae453',units: 'metric',containerid: 'openweathermap-widget-11',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>
         </div>
         <div class="images">
-            <p>
-                asdadasd
-            </p>
+            <div class="card">
+                <h3>Teluk Nipah</h3>
+                <a href="https://www.percutianbajet.com/perak/pulau-pangkor/teluk-nipah-pulau-pangkor" target="_blank"><img src="{{asset('img/teluk nipah.jpg')}}" alt=""></a>
+            </div>
+            <div class="card">
+                <h3>Kota Belanda</h3>
+                <a href="https://themalayapost.my/kota-belanda-monumen-popular-di-pulau-pangkor/" target="_blank"><img src="{{asset('img/kota belanda.jpg')}}" alt=""></a>
+            </div>
+            <div class="card">
+                <h3>Island Hopping</h3>
+                <a href="" target="_blank"><img src="{{asset('img/island hopping.jpg')}}" alt=""></a>
+            </div>
+
         </div>
     </div>
 </div>
@@ -93,5 +94,22 @@
         opacity: null
     };
     ScrollReveal().reveal('.contents', {delay:300});
+
+    function changepickup(){
+        var pickup =  document.getElementById('pickup');
+        let currentdate = new Date();
+        let day = currentdate.getDate();
+        let month = currentdate.getMonth()+1;
+        let year = currentdate.getFullYear();
+        let date = "{{$date}}";
+        pickup.type = 'date';
+        pickup.min = date;
+    }
+    function changereturn(){
+        var pickup =  document.getElementById('return');
+        let date = "{{$date}}";
+        pickup.type = 'date';
+        pickup.min = date;
+    }
 </script>
 @endsection

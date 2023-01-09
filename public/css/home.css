@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(250, 250, 250);
+    /* background-color: rgb(250, 250, 250); */
     margin : 0 auto;
     overflow-x: hidden;
 }
@@ -16,10 +16,30 @@ button:hover{
     border: .5px solid rgb(71, 71, 255);
     transition: .3s ease-in-out;
 }
-.history_card .card_content{
+.history_card{
+    display: flex;
+    gap: 50%;
     border: .5px solid rgb(204, 204, 204);
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 20px;
     border-radius: 8px;
 }
+.history_card .card_content{
+    padding: 20px;
+}
+.history_card .card_content .cancel{
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+}
+.history_card .card_content .cancel:hover{
+    background-color: white;
+    color: red;
+    border: .5px solid red;
+}
+.history_card .image img{
+    width: 300px;
+}
+
+

@@ -11,7 +11,9 @@
                 <p>Model : {{$data->model}}</p>
                 <p>Cubic Capacity (cc) : {{$data->cc}}</p>
                 <h4>{{$data->price}}</h4>
-                <a href="/Delete/{{ $data->vehicle_id }}">Delete</a>
+                <a href="/Edit/{{ $data->vehicle_id }}" class="edit">Edit</a>
+                <a href="/Delete/{{ $data->vehicle_id }}" class="delete">Delete</a>
+
             </div>
         @endforeach
     </div>

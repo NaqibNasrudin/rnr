@@ -17,7 +17,7 @@ class ToyyibpayController extends Controller
             'billPriceSetting'=>1,
             'billPayorInfo'=>1,
             'billAmount'=>$total,
-            'billReturnUrl'=>route(name:'home'),
+            'billReturnUrl'=>route (name:'home'),
             'billCallbackUrl'=>'http://bizapp.my/paystatus',
             'billExternalReferenceNo' => 'AFR341DFI',
             'billTo'=>'John Doe',

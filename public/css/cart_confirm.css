@@ -1,0 +1,78 @@
+html{
+    font-family: 'Ubuntu', sans-serif
+}
+h2{
+    text-align: center;
+    font-size: 30px;
+}
+.container{
+    /* display: inline-grid;
+    grid-template-columns: 1fr 2fr; */
+    display: flex;
+}
+.container .card{
+    width: 45%;
+    margin: 0 auto;
+}
+.container .card .card_content{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    height: 200px;
+    padding: 20px;
+    width: 100%;
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: rgba(71, 71, 255, 0.2) 0px 7px 29px 0px;
+    border: .5px solid rgb(71, 71, 255);
+}
+.container .card .card_content .image{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container .card .card_content .image img{
+    width: 80%;
+    mix-blend-mode: color;
+}
+.container .card .card_content .card_detail{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.container .card .card_content .card_detail p{
+    font-size: 18px;
+}
+
+
+.container .form{
+    /* border: 1px solid black; */
+    border-left: 1px solid grey;
+    grid-column: 2;
+    width: 35%;
+    margin: 20px auto;
+    padding: 50px;
+}
+.container .form input[type=text]{
+    padding: 10px;
+    width: 50%;
+    border-radius: 10px;
+    border: .5px solid grey;
+}
+.container .form input[type=submit]{
+    margin-top: 30px;
+    width: 150px;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    background-color:  rgb(71, 71, 255);
+    color: white;
+}
+.container .form input[type=submit]:hover{
+    cursor: pointer;
+    color: rgb(71, 71, 255);
+    background-color: white;
+    border: 1px solid rgb(71, 71, 255);
+    transition: .3s ease;
+}
+

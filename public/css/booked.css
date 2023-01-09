@@ -1,0 +1,27 @@
+html{
+    font-family: 'Ubuntu', sans-serif;
+}
+.card{
+    margin: 50px;
+}
+.card .card_content{
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 10px;
+    width: 60%;
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 20px;
+}
+.card .card_content img{
+    width: 300px;
+}
+.card .card_content .detail{
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+h2{
+    text-align: center;
+}

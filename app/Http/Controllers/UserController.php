@@ -119,10 +119,20 @@ class UserController extends Controller
             // return view('users.receipt',['data'=>$data]);
             return redirect( "/payment/{$price}" );
         }
-
-
+     }
+     public function CancelConfirm($book_id){
+        $vehidata = DB::table('vehicles')
+                    ->leftJoin('bookings', 'vehicles.vehicle_id', '=', 'bookings.vehicle_id')
+                    ->select( 'bookings.book_id','bookings.pickup_date', 'bookings.return_date', 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
+                    ->where('book_id',$book_id)
+                    ->first();
+        return view('users.cancel_booking',['book_id'=>$book_id, 'vehidata'=>$vehidata]);
      }
 
+     public function CancelBooking($book_id){
+        DB::table('bookings')->where('book_id',$book_id)->delete();
+        return redirect('/Profile');
+     }
      public function Cart(){
         $user = Auth::user();
         $data = DB::table('vehicles')
@@ -177,20 +187,21 @@ class UserController extends Controller
         return redirect('/Cart');
      }
 
-     public function Checkout(){
+     public function Checkout($total){
         $user = Auth::user();
         $data = DB::table('vehicles')
                 ->leftJoin('carts', 'vehicles.vehicle_id', '=', 'carts.vehicle_id')
                 ->select( 'carts.pickup_date', 'carts.return_date', 'vehicles.vehicle_id', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
                 ->where('user_id',$user->user_id)
                 ->get();
-        return view('users.cart_confirm',['data'=>$data,'user'=>$user]);
+        return view('users.cart_confirm',['data'=>$data,'user'=>$user, 'total'=>$total]);
      }
      public function CheckoutStore(Request $request){
         $length = count($request->input('vehicleid'));
         $vehicle = $request->input('vehicleid');
         $pickup = $request->input('pickup');
         $return = $request->input('return');
+        $total = $request->input('total');
         $user = Auth::user();
         for ($i=0; $i < $length ; $i++) {
             DB::insert('insert into bookings (user_id, vehicle_id, phone_no, pickup_date, return_date)
@@ -211,7 +222,8 @@ class UserController extends Controller
                 ->where('pickup_date',$pickup)
                 ->where('return_date',$return)
                 ->get();
-        return view('users.receipt',['data'=>$data]);
+        // return view('users.receipt',['data'=>$data]);
+        return redirect( "/payment/{$total}");
      }
 
 

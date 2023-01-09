@@ -4,6 +4,7 @@ use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,9 @@ use Illuminate\Support\Carbon;
 */
 
 Route::get('/', function () {
+    $now = Carbon::now();
+    DB::table('bookings')->where('return_date','<',$now)->delete();
+
     $date = Carbon::now()->toDateString();
     return view('welcome',['date'=>$date]);
 });
@@ -31,6 +35,8 @@ Route::get('/Admin', [App\Http\Controllers\AdminController::class, 'index'])->na
 Route::get('/Upload', [App\Http\Controllers\AdminController::class, 'indexUpload']);
 Route::post('/Store_info', [App\Http\Controllers\AdminController::class, 'StoreVehi']);
 Route::get('/Delete/{vehicle_id}', [App\Http\Controllers\AdminController::class, 'DeleteVehi']);
+Route::get('/Edit/{vehicle_id}', [App\Http\Controllers\AdminController::class, 'EditVehi']);
+Route::post('/Edit_confirm/{vehicle_id}', [App\Http\Controllers\AdminController::class, 'EditVehiConfirm']);
 
 Route::get('/Booked', [App\Http\Controllers\AdminController::class, 'BookedVehi']);
 
@@ -44,9 +50,11 @@ Route::get('/Book/{vehicle_id}/from{pickup}to{return}/Vehicle_detail', [App\Http
 Route::post('/Store_booking/{vehicle_id}', [App\Http\Controllers\UserController::class, 'StoreBooking']);
 Route::get('/Cart/{vehicle_id}/from{pickup}to{return}', [App\Http\Controllers\UserController::class, 'AddtoCart'])->middleware(Authenticate::class);
 Route::get('/Cart', [App\Http\Controllers\UserController::class, 'Cart']);
-Route::get('/Checkout', [App\Http\Controllers\UserController::class, 'Checkout']);
+Route::get('/Checkout/{total}', [App\Http\Controllers\UserController::class, 'Checkout']);
 Route::post('/CheckoutStore', [App\Http\Controllers\UserController::class, 'CheckoutStore']);
 Route::get('/Delete_Item/{cart_id}', [App\Http\Controllers\UserController::class, 'DeleteItem']);
+Route::get('/Cancel_booking/{book_id}', [App\Http\Controllers\UserController::class, 'CancelConfirm']);
+Route::get('/Confirm/{book_id}', [App\Http\Controllers\UserController::class, 'CancelBooking']);
 
 Route::get('/Contact_Us', [App\Http\Controllers\UserController::class, 'ContactUs']);
 

@@ -19,7 +19,7 @@
                 <ul>
                     <li><a href="/Admin">View Vehicles</a></li>
                     <li><a href="/Upload">Upload New Vehicle</a></li>
-                    <li><a href="/Booked">Booked Vehicle Vehicle</a></li>
+                    <li><a href="/Booked">Booked Vehicle</a></li>
                 </ul>
             </div>
             <div class="login">

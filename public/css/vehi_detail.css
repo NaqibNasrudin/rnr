@@ -37,7 +37,7 @@
 .card .card_right .content .price{
     font-size: 40px;
     color: rgb(71, 71, 255);
-    padding: 10px 10px 10px 0px ;
+    padding: 10px 10px 10px 0px;
 }
 
 
@@ -62,4 +62,14 @@
     border: .5px solid rgb(71, 71, 255);
     cursor: pointer;
     transition: .3s ease-in-out;
+}
+
+
+@media only screen and (max-width: 1540px){
+    .card .card_right .content .price{
+        font-size: 30px;
+    }
+    .card .card_right .content p{
+        font-size: 15px;
+    }
 }

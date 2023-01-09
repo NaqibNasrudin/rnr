@@ -41,8 +41,6 @@ class AdminController extends Controller
     public function StoreVehi(Request $request){
         $destinationPath = 'img';
         $myimage = $request->file('img')->getClientOriginalName();
-        // print($myimage);
-        // $request->image->move(public_path($destinationPath), $myimage);
         $request->file('img')->move(public_path($destinationPath), $myimage);
 
         $name = Auth::user();
@@ -63,74 +61,35 @@ class AdminController extends Controller
         return redirect('/Admin');
 
     }
+    public function EditVehi($vehicle_id){
+        $data = DB::table('vehicles')->where('vehicle_id',$vehicle_id)->first();
+        return view('admin.edit',['data'=>$data]);
+    }
+    public function EditVehiConfirm(Request $request, $vehicle_id){
+        $plate = $request->input('plate');
+        $model = $request->input('model');
+        $brand = $request->input('brand');
+        $cc = $request->input('cc');
+        $price = $request->input('price');
+
+        $updatearr = array(
+            'plate_number' => $plate,
+            'model' => $model,
+            'brand' => $brand,
+            'cc' => $cc,
+            'price' => $price
+        );
+
+        DB::table('vehicles')->where('vehicle_id',$vehicle_id)->update($updatearr);
+        return redirect('/Admin');
+    }
 
     public function BookedVehi(){
-        $data = Booking::all();
+        $data = DB::table('vehicles')
+                    ->leftJoin('bookings', 'vehicles.vehicle_id', '=', 'bookings.vehicle_id')
+                    ->select( 'bookings.book_id','bookings.pickup_date', 'bookings.return_date', 'vehicles.vehicle_id', 'vehicles.cc', 'vehicles.img_name', 'vehicles.plate_number', 'vehicles.model', 'vehicles.brand', 'vehicles.price')
+                    ->whereNotNull('book_id')
+                    ->get();
         return view('admin.booked',['data'=>$data]);
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

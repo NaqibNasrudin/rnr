@@ -16,6 +16,7 @@
             <br>
             <input type="text" value="RM " name="price">
             <br>
+            <label for="">Select Image : </label>
             <input type="file" name="img">
             <br>
             <input type="submit">

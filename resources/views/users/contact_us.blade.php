@@ -3,26 +3,27 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 @section('content')
 <div class="content">
-    <h2>Contact Us</h2>
+    <h1>Contact Us</h1>
     <div class="contact_detail">
         <div class="contact">
             <div class="phone">
-                <a href="#" class="fa fa-facebook"></a>
-                <p>phone no</p>
+                <a href="#" class="fa fa-phone"></a>
+                <p>+60125004023 </p>
             </div>
             <div class="mail">
-                <a href="#" class="fa fa-google"></a>
-                <p>email</p>
+                <a href="mailto:guhs5585@gmail.com" class="fa fa-envelope"></a>
+                <p>guhs5585@gmail.com</p>
             </div>
             <div class="address">
-                <a href="#" class="fa fa-foursquare"></a>
-                <p>address</p>
+                <a href="#" class="fa fa-map-marker"></a>
+                <p>Pangkor Ferry Jetty, Pangkor, 32300 Pulau Pangkor, Perak</p>
             </div>
 
         </div>
         <div class="social_media">
-            <p>fb</p>
-            <p>wassap</p>
+            <a href="https://www.facebook.com/Pangkorpbc" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+            <a href="https://api.whatsapp.com/send?phone=%2B60125004023&fbclid=IwAR2q6ejaltzhrZnJb4YlNIqevqvUc2tAGi4TS5PuT9GWlGy-mxclqnq6xao" target="_blank"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+
         </div>
     </div>
     <div class="map">

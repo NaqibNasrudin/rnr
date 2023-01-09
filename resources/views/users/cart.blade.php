@@ -34,7 +34,7 @@
             <input type="submit" value="Continue Booking">
         </form>
         <h3>Total : RM {{$total}}</h3>
-        <a href="/Checkout" class="checkout"><button>Checkout</button></a>
+        <a href="/Checkout/{{$total}}" class="checkout"><button>Checkout</button></a>
     </div>
 @endif
 

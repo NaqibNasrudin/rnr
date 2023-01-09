@@ -1,7 +1,3 @@
-/* .content{
-    display: grid;
-    grid-template-columns: 10% 10% 2fr 10% 10%;
-} */
 
 .card{
     width: 80%;
@@ -28,10 +24,20 @@
     height: 30%;
 }
 
-.card .card_content a{
+.card .card_content .delete{
     color: red;
     text-decoration: none;
+    margin-left: 10px;
 }
-.card .card_content a:hover{
+.card .card_content .delete:hover{
     color: rgb(165, 0, 0);
+}
+
+.card .card_content .edit{
+    color: blue;
+    text-decoration: none;
+    margin-right: 10px;
+}
+.card .card_content .edit:hover{
+    color: rgb(0, 0, 187);
 }

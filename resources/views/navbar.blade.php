@@ -22,7 +22,7 @@
                 <ul>
                     <li><a href="/">Home</a></li>
                     {{-- <li><a href="/Book">Book</a></li> --}}
-                    <li><a href="/Contact-Us">Contact Us</a></li>
+                    <li><a href="/Contact_Us">Contact Us</a></li>
                 </ul>
             </div>
             <div class="login">

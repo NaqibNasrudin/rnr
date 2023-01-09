@@ -70,6 +70,7 @@ class UserController extends Controller
         $phoneno = $request->input('phoneno');
         $pickup = $request->input('pickup');
         $return = $request->input('return');
+        $price = $request->input('price');
 
         $name = Auth::user();
         if ($phoneno == null) {
@@ -101,7 +102,8 @@ class UserController extends Controller
                 ->where('pickup_date',$pickup)
                 ->where('return_date',$return)
                 ->get();
-            return view('users.receipt',['data'=>$data]);
+            // return view('users.receipt',['data'=>$data]);
+            return redirect( "/payment/{$price}" );
 
         }
         else{
@@ -114,7 +116,8 @@ class UserController extends Controller
                 ->where('return_date',$return)
                 ->get();
 
-            return view('users.receipt',['data'=>$data]);
+            // return view('users.receipt',['data'=>$data]);
+            return redirect( "/payment/{$price}" );
         }
 
 
@@ -211,6 +214,10 @@ class UserController extends Controller
         return view('users.receipt',['data'=>$data]);
      }
 
+
+    public function ContactUs(){
+        return view('users.contact_us');
+    }
       public function GenerateReceipt(Request $request){
         $templateProcessor = new TemplateProcessor('word-template/receipt.docx');
 

@@ -1,0 +1,60 @@
+.content{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+}
+.content .contact_detail{
+    grid-column: 1;
+    display: flex;
+    flex-direction: column;
+}
+.content .contact_detail .social_media{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    margin: 30px;
+    justify-content: center;
+}
+.content .contact_detail .contact .phone,.mail,.address{
+    display: flex;
+    gap: 30px;
+    /* border: .5px solid grey; */
+    border-radius: 10px;
+    margin: 30px;
+    padding: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.content .contact_detail .contact p{
+    display: flex;
+    font-size: 25px;
+    align-items: center;
+    justify-content: center;
+}
+.content .contact_detail .contact .fa{
+    padding: 20px;
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+    border-radius: 50px;
+}
+.content .contact_detail .contact .phone .fa-facebook{
+    background-color: #3B5998;
+    color: white;
+}
+.content .contact_detail .contact .mail .fa-google{
+    background: #dd4b39;
+    color: white;
+}
+.content .contact_detail .contact .address .fa-foursquare{
+    background: #45bbff;
+    color: white;
+}
+
+.content .map{
+    grid-column: 2;
+    /* display: inline-block; */
+    border: 1px solid black;
+}

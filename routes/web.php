@@ -48,8 +48,14 @@ Route::get('/Checkout', [App\Http\Controllers\UserController::class, 'Checkout']
 Route::post('/CheckoutStore', [App\Http\Controllers\UserController::class, 'CheckoutStore']);
 Route::get('/Delete_Item/{cart_id}', [App\Http\Controllers\UserController::class, 'DeleteItem']);
 
+Route::get('/Contact_Us', [App\Http\Controllers\UserController::class, 'ContactUs']);
 
-Route::get('/Receipt', [App\Http\Controllers\UserController::class, 'GenerateReceipt']);
+
+//Payment
+Route::get('/payment/{price}', [App\Http\Controllers\ToyyibpayController::class, 'createbill']);
+
+//Receipt
+Route::get('/Receipt', [App\Http\Controllers\UserController::class, 'GenerateReceipt'])->name('receipt');
 
 
 Route::get('/test', [App\Http\Controllers\UserController::class, 'test']);

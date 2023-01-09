@@ -48,6 +48,7 @@
                 {{-- <label for="">Return Date : </label> --}}
                 <input type="date" name="return" name="return" value="{{$return}}" hidden>
                 <input type="text" placeholder="Phone Number" name="phoneno">
+                <input type="text" name="price" value="{{$total}}" hidden>
                 @if(session()->has('error'))
                     <div class="alert alert-danger">
                         {{ session()->get('error') }}
